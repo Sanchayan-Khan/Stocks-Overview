@@ -1,103 +1,154 @@
-import Image from "next/image";
+'use client'
+import Link from 'next/link'
+import 'animate.css';
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
+import { TextHoverEffect } from "@/components/ui/text-hover-effect"
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+} from 'recharts'
+
+type Stock = {
+  symbol: string
+  name: string
+  logo: string
+  price: number
+  change: number
+  percentChange: number
+  chartData: { time: string; price: number }[]
+}
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [stocks, setStocks] = useState<Stock[]>([])
+  const [loading, setLoading] = useState(true)
+  const [search, setSearch] = useState('')
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  useEffect(() => {
+    const fetchStocks = async () => {
+      try {
+        const res = await axios.get('/api/stocks')
+        setStocks(res.data)
+      } catch (err) {
+        console.error('Fetch error:', err)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchStocks()
+    const interval = setInterval(fetchStocks, 60000)
+    return () => clearInterval(interval)
+  }, [])
+
+  const filtered = stocks.filter((stock) =>
+    stock.symbol.toLowerCase().includes(search.toLowerCase()) ||
+    stock.name.toLowerCase().includes(search.toLowerCase())
+  )
+
+  return (
+    <div className="min-h-screen bg-black text-white p-8 relative">
+      {/* Metallic gradient overlay to give depth to black background */}
+      <div className="fixed inset-0 bg-gradient-to-br from-zinc-900 to-black opacity-70 z-[-10]"></div>
+      
+      {/* Background Text Effect */}
+      <div className="fixed inset-0 flex items-center justify-center z-0">
+        <div className="w-full h-full transform scale-[1] opacity-70">
+          <TextHoverEffect text="STOCKS" />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
+      
+      {/* Main Content */}
+      <div className="relative z-20">
+        <div className="max-w-6xl mx-auto">
+        <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-400 via-purple-500 to-pink-600 text-center mb-8 animate__animated animate__fadeIn animate__delay-1s hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-yellow-400 hover:via-red-500 hover:to-orange-600">
+        Stock Market Dashboard
+      </h1>
+
+          <div className="mb-8 flex justify-center">
+            <input
+              type="text"
+              placeholder="Search by symbol or name (e.g. AAPL, Apple)"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-full md:w-2/3 p-3 rounded-lg border border-gray-600 bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          {loading ? (
+            <p className="text-center text-gray-400">Loading stock data...</p>
+          ) : filtered.length === 0 ? (
+            <p className="text-center text-gray-400">No stocks found matching "{search}"</p>
+          ) : (
+            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {filtered.map((stock) => (
+                <Link href={`/stocks/${stock.symbol}`} key={stock.symbol}>
+                  <div className="bg-gray-800 rounded-xl shadow-lg p-6 transition-transform hover:scale-105 hover:shadow-xl cursor-pointer">
+                    <div className="flex items-center gap-3 mb-2">
+                      {stock.logo && (
+                        <img src={stock.logo} alt={`${stock.name} logo`} className="w-8 h-8 rounded-full" />
+                      )}
+                      <div className="flex-1">
+                        <h2 className="text-lg font-semibold text-white">{stock.name}</h2>
+                        <p className="text-sm text-gray-400">{stock.symbol}</p>
+                      </div>
+                      <span
+                        className={`text-sm font-medium px-2 py-1 rounded ${
+                          stock.change >= 0
+                            ? 'bg-green-900 text-green-300'
+                            : 'bg-red-900 text-red-300'
+                        }`}
+                      >
+                        {stock.percentChange.toFixed(2)}%
+                      </span>
+                    </div>
+                
+                    <p className="text-lg text-gray-300 mb-1">
+                      Price: ${stock.price.toFixed(2)}
+                    </p>
+                    <p
+                      className={`text-sm ${
+                        stock.change >= 0 ? 'text-green-600' : 'text-red-600'
+                      } dark:text-opacity-80 mb-4`}
+                    >
+                      Change: {stock.change.toFixed(2)}
+                    </p>
+                
+                    {/* Chart */}
+                    <div className="w-full h-32">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <LineChart data={stock.chartData}>
+                          <Line
+                            type="monotone"
+                            dataKey="price"
+                            stroke={stock.change >= 0 ? '#10B981' : '#EF4444'}
+                            strokeWidth={2}
+                            dot={false}
+                          />
+                          <XAxis dataKey="time" hide />
+                          <YAxis domain={['auto', 'auto']} hide />
+                          <Tooltip
+                            contentStyle={{
+                              backgroundColor: '#1f2937',
+                              borderRadius: '8px',
+                              color: '#fff',
+                              fontSize: '0.8rem',
+                            }}
+                          />
+                        </LineChart>
+                      </ResponsiveContainer>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
     </div>
-  );
+  )
 }
