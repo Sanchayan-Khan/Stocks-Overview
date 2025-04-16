@@ -4,8 +4,10 @@ import axios from 'axios'
 const API_KEY = process.env.FINNHUB_API_KEY
 
 export async function GET(
-  request: NextRequest, { params }: { params: { id: string } }) {
-  const { id } = params
+  request: NextRequest,
+  context: { params: { id: string } }
+) {
+  const { id } = context.params
 
   try {
     // Fetch stock quote (current price, change, etc.)
