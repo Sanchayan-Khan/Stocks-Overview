@@ -1,14 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import axios from 'axios';
-type RouteHandlerContext<T> = { params: T };
 
 const API_KEY = process.env.FINNHUB_API_KEY;
 
 export async function GET(
   request: NextRequest,
-  context: RouteHandlerContext<{ id: string }>
+  { params }: { params: { id: string } } // Correctly destructure and type the context
 ) {
-  const { id } = context.params;
+  const { id } = params;
 
   try {
     const [quoteRes, profileRes, metricsRes] = await Promise.all([
