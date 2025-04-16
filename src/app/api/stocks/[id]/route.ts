@@ -5,35 +5,31 @@ const API_KEY = process.env.FINNHUB_API_KEY
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
-  const { id } = params;
+  const { id } = context.params;
 
   try {
-    // Fetch stock quote (current price, change, etc.)
     const quoteRes = await axios.get(
       `https://finnhub.io/api/v1/quote?symbol=${id}&token=${API_KEY}`
-    )
+    );
 
-    // Fetch company profile (name, logo)
     const profileRes = await axios.get(
       `https://finnhub.io/api/v1/stock/profile2?symbol=${id}&token=${API_KEY}`
-    )
+    );
 
-    // Fetch advanced metrics (market cap, PE ratio, EPS, 52w high/low, etc.)
     const metricsRes = await axios.get(
       `https://finnhub.io/api/v1/stock/metric?symbol=${id}&metric=all&token=${API_KEY}`
-    )
+    );
 
-    // Generate dummy chart data (past 7 timestamps)
-    const now = new Date()
+    const now = new Date();
     const chartData = Array.from({ length: 7 }, (_, i) => ({
       time: new Date(now.getTime() - i * 60 * 60 * 1000).toLocaleTimeString([], {
         hour: '2-digit',
         minute: '2-digit',
       }),
       price: quoteRes.data.c + (Math.random() - 0.5) * 5,
-    })).reverse()
+    })).reverse();
 
     const stock = {
       symbol: id,
@@ -50,11 +46,11 @@ export async function GET(
       week52Low: metricsRes.data.metric['52WeekLow'],
       dayHigh: quoteRes.data.h,
       dayLow: quoteRes.data.l,
-    }
+    };
 
-    return NextResponse.json(stock)
+    return NextResponse.json(stock);
   } catch (error) {
-    console.error('Error fetching stock data:', error)
-    return NextResponse.json({ error: 'Failed to fetch stock data' }, { status: 500 })
+    console.error('Error fetching stock data:', error);
+    return NextResponse.json({ error: 'Failed to fetch stock data' }, { status: 500 });
   }
 }
