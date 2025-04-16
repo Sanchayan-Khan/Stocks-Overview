@@ -5,7 +5,7 @@ const API_KEY = process.env.FINNHUB_API_KEY
 
 export async function GET(
   request: NextRequest,
-  context: { params: { id: string } }
+  context: { params: Record<string, string> }
 ) {
   const { id } = context.params;
 
