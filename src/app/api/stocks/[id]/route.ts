@@ -3,12 +3,11 @@ import axios from 'axios';
 
 const API_KEY = process.env.FINNHUB_API_KEY;
 
-// Use the exact handler signature from Next.js documentation
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
-) {
-  const { id } = params;
+  context: { params: { [key: string]: string | string[] } }
+): Promise<Response> {
+  const id = context.params.id as string;
 
   try {
     const [quoteRes, profileRes, metricsRes] = await Promise.all([
