@@ -5,9 +5,9 @@ const API_KEY = process.env.FINNHUB_API_KEY;
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } } // Correctly destructure and type the context
+  context: { params: Record<string, string> } // Use Record<string, string> for params
 ) {
-  const { id } = params;
+  const { id } = context.params;
 
   try {
     const [quoteRes, profileRes, metricsRes] = await Promise.all([
