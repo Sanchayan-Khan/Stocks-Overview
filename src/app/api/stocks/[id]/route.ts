@@ -1,26 +1,20 @@
-import { NextRequest, NextResponse } from 'next/server'
-import axios from 'axios'
+import { NextRequest, NextResponse } from 'next/server';
+import axios from 'axios';
 
-const API_KEY = process.env.FINNHUB_API_KEY
+const API_KEY = process.env.FINNHUB_API_KEY;
 
 export async function GET(
   request: NextRequest,
-  context: { params: Record<string, string> }
+  { params }: { params: { id: string } }
 ) {
-  const { id } = context.params;
+  const { id } = params;
 
   try {
-    const quoteRes = await axios.get(
-      `https://finnhub.io/api/v1/quote?symbol=${id}&token=${API_KEY}`
-    );
-
-    const profileRes = await axios.get(
-      `https://finnhub.io/api/v1/stock/profile2?symbol=${id}&token=${API_KEY}`
-    );
-
-    const metricsRes = await axios.get(
-      `https://finnhub.io/api/v1/stock/metric?symbol=${id}&metric=all&token=${API_KEY}`
-    );
+    const [quoteRes, profileRes, metricsRes] = await Promise.all([
+      axios.get(`https://finnhub.io/api/v1/quote?symbol=${id}&token=${API_KEY}`),
+      axios.get(`https://finnhub.io/api/v1/stock/profile2?symbol=${id}&token=${API_KEY}`),
+      axios.get(`https://finnhub.io/api/v1/stock/metric?symbol=${id}&metric=all&token=${API_KEY}`),
+    ]);
 
     const now = new Date();
     const chartData = Array.from({ length: 7 }, (_, i) => ({
