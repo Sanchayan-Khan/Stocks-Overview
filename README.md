@@ -1,21 +1,25 @@
 # Stock Dashboard
 
-This is a Next.js stock dashboard application that provides real-time stock data, interactive charts, and financial analysis tools.
+This is a Next.js stock dashboard application that provides real-time stock data, interactive charts, and financial analysis tools with user authentication.
 
 ## Features
 
+- **User Authentication**: Secure login and signup functionality
 - **Real-time Stock Data**: Monitor stock prices with automatic updates
-- **Interactive Charts**: Visualize stock performance with customizable charts
+- **Interactive Charts**: Visualize stock performance with Recharts
 - **Watchlist**: Save and track your favorite stocks
 - **Financial Analysis**: View key financial metrics and indicators
 - **Responsive Design**: Access from any device with a fully responsive interface
+- **API Routes**: Secure backend API endpoints for data handling
 
 ## Tech Stack
 
-- **Framework**: Next.js 14
-- **Styling**: Tailwind CSS
-- **Charts**: Chart.js
-- **Data**: Integration with stock market APIs
+- **Framework**: Next.js 15 with App Router
+- **Database**: MongoDB with Mongoose
+- **Authentication**: Custom auth with Jose JWT
+- **Styling**: Tailwind CSS with custom animations
+- **Charts**: Recharts
+- **UI Components**: Custom components with Framer Motion
 - **State Management**: React Context API
 
 ## Getting Started
@@ -28,10 +32,11 @@ npm install
 yarn install
 ```
 
-Create a `.env.local` file in the root directory with your API keys:
+Create a `.env.local` file in the root directory with the following variables:
 
 ```
-NEXT_PUBLIC_API_KEY=your_api_key_here
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret_key
 ```
 
 Then, run the development server:
@@ -40,20 +45,25 @@ Then, run the development server:
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the dashboard.
+The application will be available at [http://localhost:3000](http://localhost:3000).
 
 ## Project Structure
 
-- `/app`: Next.js app router components and pages
-- `/components`: Reusable UI components
-- `/lib`: Utility functions and API handlers
-- `/public`: Static assets
+```
+src/
+├── app/                    # Next.js app router components and pages
+│   ├── api/               # API routes for authentication and stock data
+│   ├── login/            # User authentication pages
+│   └── stocks/           # Stock-related pages
+├── components/            # Reusable UI components
+│   ├── providers/        # Context providers
+│   └── ui/              # UI components
+├── lib/                  # Utility functions
+├── middleware/           # Authentication and database middleware
+└── models/              # MongoDB models
+```
 
 ## Contributing
 
