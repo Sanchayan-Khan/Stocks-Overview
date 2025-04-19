@@ -7,7 +7,6 @@ This is a Next.js stock dashboard application that provides real-time stock data
 - **User Authentication**: Secure login and signup functionality using Jose JWT
 - **Real-time Stock Data**: Monitor stock prices with automatic updates
 - **Interactive Charts**: Visualize stock performance with Recharts 2.0
-- **Watchlist**: Save and track your favorite stocks
 - **Financial Analysis**: View key financial metrics and indicators
 - **Responsive Design**: Access from any device with a fully responsive interface
 - **Modern Animations**: Smooth transitions and effects using Framer Motion
