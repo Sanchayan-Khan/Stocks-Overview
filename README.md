@@ -4,23 +4,28 @@ This is a Next.js stock dashboard application that provides real-time stock data
 
 ## Features
 
-- **User Authentication**: Secure login and signup functionality
+- **User Authentication**: Secure login and signup functionality using Jose JWT
 - **Real-time Stock Data**: Monitor stock prices with automatic updates
-- **Interactive Charts**: Visualize stock performance with Recharts
+- **Interactive Charts**: Visualize stock performance with Recharts 2.0
 - **Watchlist**: Save and track your favorite stocks
 - **Financial Analysis**: View key financial metrics and indicators
 - **Responsive Design**: Access from any device with a fully responsive interface
-- **API Routes**: Secure backend API endpoints for data handling
+- **Modern Animations**: Smooth transitions and effects using Framer Motion
+- **API Routes**: Secure backend API endpoints with MongoDB integration
 
 ## Tech Stack
 
-- **Framework**: Next.js 15 with App Router
-- **Database**: MongoDB with Mongoose
-- **Authentication**: Custom auth with Jose JWT
-- **Styling**: Tailwind CSS with custom animations
-- **Charts**: Recharts
-- **UI Components**: Custom components with Framer Motion
-- **State Management**: React Context API
+- **Framework**: Next.js 15.3.0 with App Router and TurboPack
+- **Database**: MongoDB with Mongoose 8.x
+- **Authentication**: JWT-based auth with Jose 6.x
+- **Styling**: 
+  - Tailwind CSS 4.x
+  - Class Variance Authority
+  - Custom animations with Framer Motion 12.x
+- **Charts**: Recharts 2.15+
+- **UI Components**: Custom components with animate.css integration
+- **API Integration**: Axios for data fetching
+- **Type Safety**: Full TypeScript support
 
 ## Getting Started
 
@@ -28,8 +33,6 @@ First, install dependencies:
 
 ```bash
 npm install
-# or
-yarn install
 ```
 
 Create a `.env.local` file in the root directory with the following variables:
@@ -39,12 +42,10 @@ MONGODB_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret_key
 ```
 
-Then, run the development server:
+Then, run the development server with TurboPack enabled:
 
 ```bash
 npm run dev
-# or
-yarn dev
 ```
 
 The application will be available at [http://localhost:3000](http://localhost:3000).
@@ -59,10 +60,10 @@ src/
 │   └── stocks/           # Stock-related pages
 ├── components/            # Reusable UI components
 │   ├── providers/        # Context providers
-│   └── ui/              # UI components
-├── lib/                  # Utility functions
+│   └── ui/              # UI components with animations
+├── lib/                  # Utility functions and helpers
 ├── middleware/           # Authentication and database middleware
-└── models/              # MongoDB models
+└── models/              # MongoDB Mongoose models
 ```
 
 ## Contributing
