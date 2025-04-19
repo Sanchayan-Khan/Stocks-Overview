@@ -1,5 +1,7 @@
-'use client'
-import { createContext, useContext, useState, useEffect } from 'react';
+'use client';
+
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 type User = {
   fullName: string;
@@ -9,17 +11,18 @@ type User = {
 type SessionContextType = {
   user: User;
   setUser: (user: User) => void;
-  logout: () => void;
+  logout: () => Promise<void>;
 };
 
 const SessionContext = createContext<SessionContextType>({
   user: null,
   setUser: () => {},
-  logout: () => {},
+  logout: async () => {},
 });
 
 export function SessionProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User>(null);
+  const router = useRouter();
 
   useEffect(() => {
     // Check for existing session
@@ -40,9 +43,15 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
 
   const logout = async () => {
     try {
-      await fetch('/api/auth/logout', { method: 'POST' });
+      // First clear the user state to trigger UI updates
       setUser(null);
-      window.location.href = '/login';
+      
+      // Then make the logout request
+      await fetch('/api/auth/logout', { method: 'POST' });
+      
+      // Let the UI update complete before redirecting
+      await new Promise(resolve => setTimeout(resolve, 200));
+      
     } catch (error) {
       console.error('Logout failed:', error);
     }

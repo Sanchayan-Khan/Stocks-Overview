@@ -12,6 +12,46 @@ import {
   ResponsiveContainer,
 } from 'recharts'
 
+const SkeletonStockDetail = () => (
+  <div className="min-h-screen bg-gradient-to-br from-zinc-900 to-black text-white p-8">
+    <div className="max-w-6xl mx-auto">
+      {/* Header */}
+      <div className="flex justify-between items-center mb-8">
+        <div className="flex items-center gap-4">
+          <div className="w-16 h-16 rounded-full bg-gray-700/50 animate-pulse" />
+          <div>
+            <div className="h-10 w-48 bg-gray-700/50 rounded animate-pulse mb-2" />
+            <div className="h-6 w-24 bg-gray-700/50 rounded animate-pulse" />
+          </div>
+        </div>
+        <div className="h-8 w-24 bg-gray-700/50 rounded animate-pulse" />
+      </div>
+
+      {/* Price & Change */}
+      <div className="flex justify-between items-center mb-8">
+        <div className="h-8 w-36 bg-gray-700/50 rounded animate-pulse" />
+        <div className="h-6 w-32 bg-gray-700/50 rounded animate-pulse" />
+      </div>
+
+      {/* Chart */}
+      <div className="w-full h-72 bg-gray-800/30 rounded-lg shadow-lg mb-8 animate-pulse" />
+
+      {/* Stock Details */}
+      <div className="bg-gray-800/30 rounded-lg shadow-lg p-6 mb-8">
+        <div className="h-8 w-40 bg-gray-700/50 rounded animate-pulse mb-4" />
+        <div className="space-y-4">
+          {[...Array(10)].map((_, i) => (
+            <div key={i} className="flex justify-between">
+              <div className="h-4 w-24 bg-gray-700/50 rounded animate-pulse" />
+              <div className="h-4 w-20 bg-gray-700/50 rounded animate-pulse" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+)
+
 type Stock = {
   symbol: string
   name: string
@@ -51,11 +91,7 @@ export default function StockDetailPage() {
   }, [id])
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center h-screen text-white">
-        <p>Loading stock data...</p>
-      </div>
-    )
+    return <SkeletonStockDetail />
   }
 
   if (!stock) {
