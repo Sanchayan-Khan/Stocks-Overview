@@ -186,10 +186,10 @@ export default function Home() {
 
   // Stock listing page for authenticated users
   return (
-    <div className="min-h-screen bg-black text-white p-8">
+    <div className="min-h-screen bg-black text-white p-4 sm:p-8">
       <div className="max-w-7xl mx-auto">
-        <div className="mb-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-teal-400 text-transparent bg-clip-text">
+        <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-400 to-teal-400 text-transparent bg-clip-text">
             Stock Market Dashboard
           </h1>
           <input
@@ -197,12 +197,12 @@ export default function Home() {
             placeholder="Search stocks..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full sm:w-80 p-3 rounded-lg border border-gray-600 bg-gray-900/50 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full sm:w-80 p-2 sm:p-3 rounded-lg border border-gray-600 bg-gray-900/50 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
         {loading ? (
-          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {[...Array(8)].map((_, index) => (
               <SkeletonCard key={index} />
             ))}
@@ -210,25 +210,25 @@ export default function Home() {
         ) : filtered.length === 0 ? (
           <p className="text-center text-gray-400 mt-8">No stocks found matching "{search}"</p>
         ) : (
-          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {filtered.map((stock) => (
               <Link href={`/stocks/${stock.symbol}`} key={stock.symbol}>
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   whileHover={{ scale: 1.02 }}
-                  className="bg-gray-800/50 backdrop-blur rounded-xl shadow-lg p-6 border border-gray-700/50 hover:border-gray-600 transition-all duration-200"
+                  className="bg-gray-800/50 backdrop-blur rounded-xl shadow-lg p-4 sm:p-6 border border-gray-700/50 hover:border-gray-600 transition-all duration-200"
                 >
-                  <div className="flex items-center gap-3 mb-2">
+                  <div className="flex items-center gap-2 sm:gap-3 mb-2">
                     {stock.logo && (
-                      <img src={stock.logo} alt={`${stock.name} logo`} className="w-8 h-8 rounded-full" />
+                      <img src={stock.logo} alt={`${stock.name} logo`} className="w-6 h-6 sm:w-8 sm:h-8 rounded-full" />
                     )}
-                    <div className="flex-1">
-                      <h2 className="text-lg font-semibold text-white">{stock.name}</h2>
-                      <p className="text-sm text-gray-400">{stock.symbol}</p>
+                    <div className="flex-1 min-w-0">
+                      <h2 className="text-base sm:text-lg font-semibold text-white truncate">{stock.name}</h2>
+                      <p className="text-xs sm:text-sm text-gray-400">{stock.symbol}</p>
                     </div>
                     <span
-                      className={`text-sm font-medium px-2 py-1 rounded ${
+                      className={`text-xs sm:text-sm font-medium px-1.5 sm:px-2 py-0.5 sm:py-1 rounded ${
                         stock.change >= 0
                           ? 'bg-green-900/50 text-green-300'
                           : 'bg-red-900/50 text-red-300'
@@ -238,18 +238,18 @@ export default function Home() {
                     </span>
                   </div>
               
-                  <p className="text-lg text-gray-300 mb-1">
+                  <p className="text-base sm:text-lg text-gray-300 mb-1">
                     ${stock.price.toFixed(2)}
                   </p>
                   <p
-                    className={`text-sm ${
+                    className={`text-xs sm:text-sm ${
                       stock.change >= 0 ? 'text-green-400' : 'text-red-400'
-                    } mb-4`}
+                    } mb-3 sm:mb-4`}
                   >
                     {stock.change >= 0 ? '+' : ''}{stock.change.toFixed(2)}
                   </p>
               
-                  <div className="w-full h-32">
+                  <div className="w-full h-24 sm:h-32">
                     <ResponsiveContainer width="100%" height="100%">
                       <LineChart data={stock.chartData}>
                         <Line

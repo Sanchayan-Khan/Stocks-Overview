@@ -45,7 +45,7 @@ export default function AuthPage() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 to-black relative overflow-hidden"
+      className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 to-black relative overflow-hidden px-4 py-8"
     >
       {/* Background animation effects */}
       <div className="absolute inset-0">
@@ -85,7 +85,7 @@ export default function AuthPage() {
 
       {/* Auth form */}
       <motion.div 
-        className="relative z-10 bg-gray-800/50 backdrop-blur p-8 rounded-lg shadow-lg w-96 border border-white/10"
+        className="relative z-10 bg-gray-800/50 backdrop-blur p-5 sm:p-8 rounded-lg shadow-lg w-full max-w-xs sm:max-w-sm border border-white/10"
         initial={{ scale: 0.95, y: 20 }}
         animate={{ scale: 1, y: 0 }}
         transition={{ duration: 0.3 }}
@@ -96,7 +96,7 @@ export default function AuthPage() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className="text-2xl font-bold text-white mb-6 text-center"
+            className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6 text-center"
           >
             {isLogin ? 'Login' : 'Sign Up'}
           </motion.h1>
@@ -112,7 +112,7 @@ export default function AuthPage() {
           </motion.div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
           <AnimatePresence>
             {!isLogin && (
               <motion.div
@@ -120,7 +120,7 @@ export default function AuthPage() {
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
               >
-                <label htmlFor="fullName" className="block text-gray-300 mb-1">
+                <label htmlFor="fullName" className="block text-gray-300 mb-1 text-sm sm:text-base">
                   Full Name
                 </label>
                 <input
@@ -128,14 +128,14 @@ export default function AuthPage() {
                   id="fullName"
                   name="fullName"
                   required={!isLogin}
-                  className="w-full p-2 rounded bg-gray-700/50 text-white border border-gray-600 focus:border-blue-500 focus:outline-none transition-colors duration-200"
+                  className="w-full p-2 rounded bg-gray-700/50 text-white border border-gray-600 focus:border-blue-500 focus:outline-none transition-colors duration-200 text-sm sm:text-base"
                 />
               </motion.div>
             )}
           </AnimatePresence>
 
           <div>
-            <label htmlFor="email" className="block text-gray-300 mb-1">
+            <label htmlFor="email" className="block text-gray-300 mb-1 text-sm sm:text-base">
               Email
             </label>
             <input
@@ -143,12 +143,12 @@ export default function AuthPage() {
               id="email"
               name="email"
               required
-              className="w-full p-2 rounded bg-gray-700/50 text-white border border-gray-600 focus:border-blue-500 focus:outline-none transition-colors duration-200"
+              className="w-full p-2 rounded bg-gray-700/50 text-white border border-gray-600 focus:border-blue-500 focus:outline-none transition-colors duration-200 text-sm sm:text-base"
             />
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-gray-300 mb-1">
+            <label htmlFor="password" className="block text-gray-300 mb-1 text-sm sm:text-base">
               Password
             </label>
             <input
@@ -156,7 +156,7 @@ export default function AuthPage() {
               id="password"
               name="password"
               required
-              className="w-full p-2 rounded bg-gray-700/50 text-white border border-gray-600 focus:border-blue-500 focus:outline-none transition-colors duration-200"
+              className="w-full p-2 rounded bg-gray-700/50 text-white border border-gray-600 focus:border-blue-500 focus:outline-none transition-colors duration-200 text-sm sm:text-base"
             />
           </div>
 
@@ -164,13 +164,13 @@ export default function AuthPage() {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             type="submit"
-            className="w-full bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-600 hover:to-teal-500 text-white p-2 rounded transition-all duration-200 font-medium"
+            className="w-full bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-600 hover:to-teal-500 text-white p-2 rounded transition-all duration-200 font-medium text-sm sm:text-base mt-2"
           >
             {isLogin ? 'Login' : 'Sign Up'}
           </motion.button>
         </form>
 
-        <div className="mt-4 text-center text-gray-400">
+        <div className="mt-4 text-center text-gray-400 text-sm sm:text-base">
           <span>{isLogin ? "Don't have an account?" : 'Already have an account?'}</span>
           <motion.button
             whileHover={{ scale: 1.05 }}

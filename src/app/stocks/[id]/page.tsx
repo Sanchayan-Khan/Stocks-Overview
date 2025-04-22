@@ -110,26 +110,26 @@ export default function StockDetailPage() {
       : num.toFixed(2)
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-zinc-900 to-black text-white p-8">
+    <div className="min-h-screen bg-gradient-to-br from-zinc-900 to-black text-white p-4 sm:p-8">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0 mb-6 sm:mb-8">
           <div className="flex items-center gap-4">
             {stock.logo && (
               <img
                 src={stock.logo}
                 alt={`${stock.name} logo`}
-                className="w-16 h-16 rounded-full shadow-lg"
+                className="w-12 h-12 sm:w-16 sm:h-16 rounded-full shadow-lg"
               />
             )}
             <div>
-              <h1 className="text-4xl font-semibold text-white">{stock.name}</h1>
-              <p className="text-xl text-gray-400">{stock.symbol}</p>
+              <h1 className="text-2xl sm:text-4xl font-semibold text-white">{stock.name}</h1>
+              <p className="text-lg sm:text-xl text-gray-400">{stock.symbol}</p>
             </div>
           </div>
 
           <div
-            className={`px-4 py-2 rounded-lg font-medium text-white ${
+            className={`px-3 py-1 sm:px-4 sm:py-2 rounded-lg font-medium text-white ${
               stock.change >= 0 ? 'bg-green-600' : 'bg-red-600'
             }`}
           >
@@ -138,12 +138,12 @@ export default function StockDetailPage() {
         </div>
 
         {/* Price & Change */}
-        <div className="flex justify-between items-center mb-8">
-          <p className="text-2xl font-bold text-white">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0 mb-6 sm:mb-8">
+          <p className="text-xl sm:text-2xl font-bold text-white">
             Price: ${stock.price.toFixed(2)}
           </p>
           <p
-            className={`text-lg font-medium ${
+            className={`text-base sm:text-lg font-medium ${
               stock.change >= 0 ? 'text-green-400' : 'text-red-400'
             }`}
           >
@@ -152,7 +152,7 @@ export default function StockDetailPage() {
         </div>
 
         {/* Chart */}
-        <div className="w-full h-72 bg-gray-800 rounded-lg shadow-lg mb-8">
+        <div className="w-full h-60 sm:h-72 bg-gray-800 rounded-lg shadow-lg mb-6 sm:mb-8">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={stock.chartData}>
               <Line
@@ -177,9 +177,9 @@ export default function StockDetailPage() {
         </div>
 
         {/* Stock Details */}
-        <div className="bg-gray-800 rounded-lg shadow-lg p-6 mb-8">
-          <h3 className="text-2xl font-semibold text-white mb-4">Stock Details</h3>
-          <ul className="space-y-2 text-gray-400">
+        <div className="bg-gray-800 rounded-lg shadow-lg p-4 sm:p-6 mb-8">
+          <h3 className="text-xl sm:text-2xl font-semibold text-white mb-4">Stock Details</h3>
+          <ul className="space-y-2 text-gray-400 text-sm sm:text-base">
             <li className="flex justify-between">
               <span>24h Change:</span>
               <span
