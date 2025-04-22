@@ -27,7 +27,7 @@ export const TextHoverEffect = ({ text }: { text: string }) => {
       onMouseLeave={() => setIsHovered(false)}
       onMouseMove={handleMouseMove}
     >
-      <svg width="100%" height="100%" viewBox="0 0 800 200">
+      <svg width="100%" height="100%" viewBox="0 0 800 200" preserveAspectRatio="xMidYMid meet">
         <defs>
           {/* Base gradient for normal state */}
           <linearGradient id={`${gradientId}-base`} x1="0%" y1="0%" x2="100%" y2="100%">
@@ -79,7 +79,7 @@ export const TextHoverEffect = ({ text }: { text: string }) => {
           y="50%"
           dominantBaseline="middle"
           textAnchor="middle"
-          className="text-8xl font-bold"
+          className="text-6xl sm:text-8xl font-bold"
           fill="rgba(59, 130, 246, 0.2)"
           filter={`url(#${glowId})`}
           stroke="rgba(59, 130, 246, 0.1)"
@@ -94,7 +94,7 @@ export const TextHoverEffect = ({ text }: { text: string }) => {
           y="50%"
           dominantBaseline="middle"
           textAnchor="middle"
-          className="text-8xl font-bold"
+          className="text-6xl sm:text-8xl font-bold"
           fill={`url(#${gradientId}-base)`}
           stroke="#1E40AF"
           strokeWidth="2"
@@ -108,7 +108,7 @@ export const TextHoverEffect = ({ text }: { text: string }) => {
           y="50%"
           dominantBaseline="middle"
           textAnchor="middle"
-          className="text-8xl font-bold"
+          className="text-6xl sm:text-8xl font-bold"
           fill={isHovered ? `url(#${gradientId})` : "transparent"}
           stroke={isHovered ? "#fff" : "transparent"}
           strokeWidth="1"
@@ -123,7 +123,7 @@ export const TextHoverEffect = ({ text }: { text: string }) => {
           y="50%"
           dominantBaseline="middle"
           textAnchor="middle"
-          className="text-8xl font-bold"
+          className="text-6xl sm:text-8xl font-bold"
           fill="transparent"
           stroke="#1E40AF"
           strokeWidth="0.5"

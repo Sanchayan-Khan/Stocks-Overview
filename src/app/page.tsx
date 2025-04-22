@@ -116,7 +116,7 @@ export default function Home() {
         </div>
 
         {/* Landing page content */}
-        <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4">
+        <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 pb-16">
           <div className="w-full max-w-4xl mx-auto text-center space-y-12">
             <div className="h-48 relative mb-8"> {/* Increased height and margin */}
               <TextHoverEffect text="STOCKS OVERVIEW" />
@@ -145,7 +145,7 @@ export default function Home() {
             </motion.div>
 
             <motion.div 
-              className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16"
+              className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16 mb-20"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1 }}
@@ -167,7 +167,7 @@ export default function Home() {
         </div>
 
         {/* Footer */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 text-center text-gray-400 z-10">
+        <div className="absolute bottom-0 left-0 right-0 p-4 text-center text-gray-400 z-10 bg-black bg-opacity-60 backdrop-blur-sm">
           <p>
             Created by{' '}
             <a 
