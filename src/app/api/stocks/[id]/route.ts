@@ -1,12 +1,13 @@
 import { NextResponse } from 'next/server';
 import axios from 'axios';
+import { type NextRequest } from 'next/server';
 
 const API_KEY = process.env.FINNHUB_API_KEY;
 
 export async function GET(
-  request: Request,
+  request: NextRequest,
   { params }: { params: { id: string } }
-): Promise<Response> {
+) {
   const id = params.id;
 
   try {
