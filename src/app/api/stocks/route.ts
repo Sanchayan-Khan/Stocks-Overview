@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import axios from 'axios'
 
-const STOCKS = ['AAPL', 'GOOGL', 'MSFT', 'TSLA', 'AMZN', 'META', 'NVDA', 'NFLX', 'BABA', 'INTC', 'AMD', 'UBER', 'IBM', 'ORCL', 'ADBE', 'CRM', 'PYPL', 'SNAP']
+const STOCKS = ['AAPL', 'GOOGL', 'MSFT', 'TSLA', 'AMZN', 'META', 'NVDA', 'NFLX', 'BABA', 'INTC', 'AMD', 'UBER', 'IBM', 'ORCL', 'ADBE', 'PYPL', 'SNAP']
 
 export async function GET() {
   try {
